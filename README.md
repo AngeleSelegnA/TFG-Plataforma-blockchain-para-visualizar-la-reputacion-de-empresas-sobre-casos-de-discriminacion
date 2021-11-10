@@ -1,4 +1,4 @@
-# TFG-Plataforma-blockchain-para-visualizar-la-reputaci-n-de-empresas-sobre-casos-de-discriminacion
+# TFG-Plataforma-blockchain-para-visualizar-la-reputacion-de-empresas-sobre-casos-de-discriminacion
 Trabajo de Fin de Grado - Facultad de Informática - Universidad Complutense de Madrid 
 
 # Estudiantes:
