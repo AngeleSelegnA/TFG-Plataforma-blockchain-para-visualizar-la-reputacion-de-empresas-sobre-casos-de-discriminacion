@@ -3,7 +3,7 @@ Trabajo de Fin de Grado - Facultad de Informática - Universidad Complutense de 
 
 # Estudiantes:
 * Javier Verde Marín
-* Jorge del Valle Vazquez
+* Jorge del Valle Vázquez
 * Alejandro Ramírez Rodríguez
 * Ana Belén Duarte León
 * María de los Ángeles Plaza Gutiérrez
