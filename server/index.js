@@ -12,6 +12,10 @@ var User = require('./User.module.js')
 const app = express()
 const port = 3001 //Se esta ejecutando en local y en 3000 se ejecuta la web
 
+app.listen(port, () => {   
+  console.log("The server is running")
+})
+
 //Conexion con BBDD y formato de los datos
 try {
 mongoose.connect(`${process.env.MONGO_START}${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_STREAM}`,{
@@ -33,7 +37,7 @@ app.use(express.urlencoded({extended : true}))
 
 //Sesion y Oauthv2
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: 'secrect',
   resave: true,
   saveUninitialized: true
 }))
@@ -76,7 +80,7 @@ app.get('/auth/linkedin',
   passport.authenticate('linkedin'),
   function(req, res){
     // Esta funcion no se llama, linkedin se encarga de la autenticacion
-});
+})
 
 app.get('/auth/linkedin/callback', (req, res, next) => {
   passport.authenticate('linkedin', (err, user, info) => {
@@ -86,15 +90,17 @@ app.get('/auth/linkedin/callback', (req, res, next) => {
    }
    req.login(user, (err) => { if (err) { return next(err) }
    ///Si el usuario da permiso 
-  res .redirect(`${process.env.REACT_PAGE}/`)
-   });
+  res .redirect(`${process.env.REACT_PAGE}`)
+   })
   })(req, res, next)
- });
+ })
 
 //Se va a guardar el id del usuario para la cookie
 passport.serializeUser((user, done) => { return done(null, user.id)})
-passport.deserializeUser((id, done) => { User.findById(id, (err, doc) => { return done (null, doc) })})
+//Se saca de la base de datos el usuario y se puede acceder a ella mediante req.user
+passport.deserializeUser((id, done) => { User.findById(id, (err, user) => {return done (null, user) 
+})})
 
-app.listen(port, () => {   
-  console.log("The server is running")
-})
+
+//Envia al frontend el valor del usuario
+app.get("/getuser" , (req, res) => { res.send(req.user) })
