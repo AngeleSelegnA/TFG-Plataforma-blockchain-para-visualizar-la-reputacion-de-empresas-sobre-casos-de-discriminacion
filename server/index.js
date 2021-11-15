@@ -37,7 +37,7 @@ app.use(express.urlencoded({extended : true}))
 
 //Sesion y Oauthv2
 app.use(session({
-  secret: 'secrect',
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 }))
