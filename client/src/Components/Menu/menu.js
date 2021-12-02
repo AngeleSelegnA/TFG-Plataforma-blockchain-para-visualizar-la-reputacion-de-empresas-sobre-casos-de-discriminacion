@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import styles from './menu.module.css';
+import { NavLink } from 'react-router-dom';
+import fdi_logo from '../../Images/fdi_logo.png';
 
+//Funcion para mostrar el menu, se usa Navlink en vez de Link para poder saber qué pagina esta activa.
 const Menu = () => { 
-    return <div>
-       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/login">User</Link></li>
+    return <div className={styles.menuDiv}>
+       <ul className={styles.menuUl}>
+        <li className={styles.textLi}><NavLink to="/" activeClassName={styles.isActive} exact={true}>Home</NavLink></li>
+        <li className={styles.textLi}><NavLink to="/user" activeClassName={styles.isActive}>User</NavLink></li>
+        <li className={styles.imgLi}><img className={styles.menuImg} src={fdi_logo} alt="FDI Logo"/></li>
       </ul>
     </div>  
 }
