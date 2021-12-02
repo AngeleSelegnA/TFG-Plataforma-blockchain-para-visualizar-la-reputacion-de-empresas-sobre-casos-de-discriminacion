@@ -1,0 +1,69 @@
+/*  Se quiere su longitud sea el 100% de la ventana, se añade un borde a modo de sombra semitransparente  */
+.menuDiv {
+  width: 100%;
+  -webkit-box-shadow: 0 4px 6px -6px #222;
+  -moz-box-shadow: 0 4px 6px -6px #222;
+  box-shadow: 0 4px 6px -6px #222;
+  margin-bottom: 1vh;
+}
+
+/* Se eliminan los bullet points, se añade un poco de margen, y se hace que los elementos de la lista sean en fila horizontal */
+.menuUl {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1px;
+    height: 5vh;
+    width: 100%;
+    display: inline-block;
+  }
+
+  /* Ajustes generales de los elementos de la lista del menu */
+  li {
+    margin: 0;
+    float: none;
+    padding: 0;
+  }
+
+  /* Los elementos del menu salvo el logo van hacia la izquierda, se establece el tamaño de letra*/
+  .textLi {
+    float: left;
+    font-size: 20px;
+  }
+
+  /* Se hace que el logo de la FDI este en el centro */
+  .imgLi {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /*Se esestablece el tipo de letra, y los espacios*/
+  .textLi a {
+    display: block;
+    padding: 6px 20px;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+
+  /*Se marca el elemento del menu por donde pasas */
+  .textLi a:hover {
+    border-bottom-style: solid;
+    border-bottom-color: #f29f2c;
+  }
+
+  /* Se marca la pagina que esta activa para que el usuario sepa donde está */
+  .isActive {
+    border-bottom-style: solid;
+    border-bottom-color: #f29f2c;
+  }
+
+  /* Se establece el color a negro del texto cuando se hace hover,etc y se elimina la linea de link */
+  .textLi a:link, a:visited,  a:hover, a:active {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  /*Se establece el tamaño de la imagen */
+  .menuImg {
+    height: 50px;
+    width: 50px;
+  }
