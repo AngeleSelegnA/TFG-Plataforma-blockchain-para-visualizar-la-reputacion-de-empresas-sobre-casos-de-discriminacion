@@ -41,7 +41,7 @@ const User = () => {
                         <p>Please note that that logging in is necessary for <strong>identification</strong> purposes:</p>
                         <ul className={styles.infoList}>
                           <li>Your personal information will <strong>not</strong> be published or stored.</li>
-                          <li>Sensitive data <strong>will</strong> not be accessed.</li>
+                          <li>Sensitive data will <strong>not</strong> be accessed.</li>
                           <li>Your report will be <strong>anonymous</strong>.</li>
                           <li>A randomized name will be assigned to you in order to show the report.</li>
                         </ul>
