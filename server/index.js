@@ -16,7 +16,7 @@ const init = async() => new Web3(infuraUrl);
 
 //Servidor
 const app = express();
-const port = 3001 //Se esta ejecutando en local y en 3000 se ejecuta la web
+const port = process.env.PORT; //Se esta ejecutando en local y en 3000 se ejecuta la web
 
 app.listen(port, () => {   
   console.log("The server is running");
@@ -115,6 +115,6 @@ app.get('/getuser' , (req, res) => { res.send(req.user); });
 app.get('/logout', function(req, res){
   req.logout();
   req.session.destroy(function (err) {
-    res.redirect('http://localhost:3000/');
+    res.redirect(`${process.env.REACT_PAGE}`);
   });
 });
