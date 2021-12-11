@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import linkedin_logo from '../../Images/linkedin_logo.png';
 import styles from './user.module.css';
 import {context} from '../../contextProvider.js';
-//import axios from 'axios';
+import axios from 'axios';
 import Web3 from 'web3';
 
 const User = () => {
@@ -31,14 +31,14 @@ const User = () => {
     //Se guardan los datos escritos en el formulario
     const handleInput = (e) => { setInput({...input, [e.target.name] : e.target.value }); };
 
-    //Para comprobar si tienen proveedor
+    //Para comprobar si tienen proveedor (Metamask)
     const hasProvider = !! Web3.givenProvider;
 
     //Funcion para el submit
     const handleSubmit = (e) => { 
         e.preventDefault();
-        //Si todavia no se ha conectado con metamask entonces aparece un popup para la conexion
-        if(accounts.length == 0) Web3.givenProvider.send('eth_requestAccounts').then(res => setAccounts(res.result));
+        //Si todavia no se ha conectado con Metamask entonces aparece un popup para la conexion
+        if(accounts.length == 0 && hasProvider) Web3.givenProvider.send('eth_requestAccounts').then(res => setAccounts(res.result));
         //Se envia al servidor
        /* axios.post('/getForm', input);*/
     };
