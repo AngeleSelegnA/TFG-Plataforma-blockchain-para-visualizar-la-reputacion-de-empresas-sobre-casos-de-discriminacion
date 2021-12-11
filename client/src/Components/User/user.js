@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import linkedin_logo from '../../Images/linkedin_logo.png';
-import styles from './user.module.css'
-import {context} from '../../contextProvider.js'
+import styles from './user.module.css';
+import {context} from '../../contextProvider.js';
+//import axios from 'axios';
+import Web3 from 'web3';
 
 const User = () => {
     //Variable y setter para mostrar u ocultar el formulario
@@ -22,11 +24,24 @@ const User = () => {
     //Desplegar el formulario
     const showFormF = () => { setShowForm(!showForm); };
 
+    //Cuentas de metamask
+    const [accounts, setAccounts] = useState([]);
+
+
     //Se guardan los datos escritos en el formulario
     const handleInput = (e) => { setInput({...input, [e.target.name] : e.target.value }); };
 
+    //Para comprobar si tienen proveedor
+    const hasProvider = !! Web3.givenProvider;
+
     //Funcion para el submit
-    const handleSubmit = (e) => { e.preventDefault();};
+    const handleSubmit = (e) => { 
+        e.preventDefault();
+        //Si todavia no se ha conectado con metamask entonces aparece un popup para la conexion
+        if(accounts.length == 0) Web3.givenProvider.send('eth_requestAccounts').then(res => setAccounts(res.result));
+        //Se envia al servidor
+       /* axios.post('/getForm', input);*/
+    };
    
     if(!user){
         return <div className={styles.container}>
@@ -53,7 +68,7 @@ const User = () => {
     else{
         return <div className={styles.userPanel}>
             <h1>User Panel</h1>
-            {showForm && (
+            {showForm && hasProvider && (
                 <form onSubmit={handleSubmit} className={styles.reportForm}>
                   <label>Report Form</label>
                   <label>Please, explain briefly what happened.</label>
@@ -61,6 +76,8 @@ const User = () => {
                   <button>Submit</button>
                 </form>
             )}
+
+            {showForm && !hasProvider && (<div><h3>You need metamask in order make a report.</h3></div>)}
             
             <div className={styles.buttonPanel}>
                 <button onClick={showFormF} className={styles.panelButton}>Show/Hide Report</button>
