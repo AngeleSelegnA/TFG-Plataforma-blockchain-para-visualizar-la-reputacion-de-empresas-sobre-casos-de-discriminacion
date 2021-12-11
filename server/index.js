@@ -12,7 +12,9 @@ var User = require('./User.module.js');
 const Web3 = require('web3');
 const infuraUrl = process.env.INFURA_URL;
 //Crea una instancia para comunicarse con el nodo indicado
-const init = async() => new Web3(infuraUrl);
+const web3 = async() => new Web3(infuraUrl);
+//Se conectaria con el contrato
+//const contract = web3.eth.Contract(complaintContract.abi, process.env.CONTRACT_ADDRESS);
 
 //Servidor
 const app = express();
@@ -110,6 +112,13 @@ passport.deserializeUser((id, done) => { User.findById(id, (err, user) => {retur
 
 //Envia al frontend el valor del usuario
 app.get('/getuser' , (req, res) => { res.send(req.user); });
+
+//Envia al frontend la informacion de las empresas
+//app.get('/getinfo', (req.res) => {
+//  let companies;
+//  contract.methods.getCompanies().call().then(companies=result);
+//  res.send(); 
+//});
 
 //Se cierra la sesion
 app.get('/logout', function(req, res){
