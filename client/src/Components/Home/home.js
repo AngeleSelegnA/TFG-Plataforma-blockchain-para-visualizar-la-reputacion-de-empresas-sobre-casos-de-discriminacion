@@ -6,6 +6,7 @@ const Home = () => {
 
     const [companies, setCompanies] = useState([]);
     const [reputation, setReputation] = useState([]);
+    const [card, setCard] = useState([]);
    
     //Para conectarse al smart contract
     useEffect(() => {
@@ -21,13 +22,12 @@ const Home = () => {
         companies.forEach(element=> {
             contract.methods.getCompanies(element).call().then(response => setReputation([...reputation, response]));
         });
-
         */
+        setCard([companies.map((e, i) => [e, reputation[i]])]);   
     
     }, []);
     
-    let result = companies.map((e, i) => [e, reputation[i]]);
-    let companyCards = result.map(item => <div><h3>{item[0]} {item[1]}</h3></div>)
+    let companyCards = card.map(item => <div><h3>{item[0]} {item[1]}</h3></div>)
 
     return <div>
         <h1>This is the homescreen</h1>
