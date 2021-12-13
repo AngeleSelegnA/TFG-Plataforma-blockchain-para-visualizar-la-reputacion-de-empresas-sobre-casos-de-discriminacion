@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import linkedin_logo from '../../Images/linkedin_logo.png';
 import styles from './user.module.css';
 import {context} from '../../contextProvider.js';
-import axios from 'axios';
 import Web3 from 'web3';
+import * as constants from './../../constantFile.js';
 
 const User = () => {
     //Variable y setter para mostrar u ocultar el formulario
@@ -16,10 +16,10 @@ const User = () => {
     const user = React.useContext(context);
     
     //Delegamos al servidor la autenticacion
-    const verifyLinkedIn = () => { window.location.href ="http://localhost:3001/auth/linkedin"};
+    const verifyLinkedIn = () => { window.location.href = `${constants.SERVER_URL}/auth/linkedin`};
 
     //Delegamos al servidor el cierre de sesion
-    const logOut = () => { window.location.href ="http://localhost:3001/logout"};
+    const logOut = () => { window.location.href = `${constants.SERVER_URL}/logout`};
    
     //Desplegar el formulario
     const showFormF = () => { setShowForm(!showForm); };
@@ -38,9 +38,8 @@ const User = () => {
     const handleSubmit = (e) => { 
         e.preventDefault();
         //Si todavia no se ha conectado con Metamask entonces aparece un popup para la conexion
-        if(accounts.length == 0 && hasProvider) Web3.givenProvider.send('eth_requestAccounts').then(res => setAccounts(res.result));
-        //Se envia al servidor
-       /* axios.post('/getForm', input);*/
+        if(accounts.length === 0 && hasProvider) Web3.givenProvider.send('eth_requestAccounts').then(res => setAccounts(res.result));
+
     };
    
     if(!user){
