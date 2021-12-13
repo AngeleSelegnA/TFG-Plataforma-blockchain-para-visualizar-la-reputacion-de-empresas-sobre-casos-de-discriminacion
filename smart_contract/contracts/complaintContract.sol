@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.5.0 < 0.8.0;
+pragma solidity >=0.5.0 <= 0.8.10;
 pragma experimental ABIEncoderV2;
 
 /************************IN PROCESS****************************/
@@ -19,12 +19,13 @@ contract complaintContract {
   }
 
   //Nombres de las empresas que se pueden denunciar para poder iterar en el mapping
-  string[] private companies;
+  string[] private companies = new string[](10);
   //Mapping que devuelve los datos de las denuncias referentes a una empresa
   mapping(string => companyData) private companyMapping;
 
   //Se inicializa la reputacion
   constructor() {
+    companies = ["empresa1", "empresa2", "empresa3", "empresa4", "empresa5", "empresa6", "empresa7", "empresa8", "empresa9", "empresa10"];
     for(uint i = 0; i < companies.length ; i++){
       companyMapping[companies[i]].reputation = 100;
     }
@@ -46,8 +47,12 @@ contract complaintContract {
   */
 
   //Funcion para obtener la reputacion
-  function getReputation(string memory c_name) external view returns (uint) {
-    return companyMapping[c_name].reputation;
+  function getReputation() external view returns (uint[] memory) {
+    uint[] memory reputations = new uint[](10);
+    for(uint i=0; i< companies.length; i++){
+      reputations[i] = (companyMapping[companies[i]].reputation);
+    }
+    return reputations;
   }
 
   //Funcion para insertar denuncia
