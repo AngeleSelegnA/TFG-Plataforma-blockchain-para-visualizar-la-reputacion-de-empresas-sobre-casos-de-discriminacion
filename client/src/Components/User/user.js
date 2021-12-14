@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import linkedin_logo from '../../Images/linkedin_logo.png';
 import styles from './user.module.css';
 import {context} from '../../contextProvider.js';
 import Web3 from 'web3';
 import * as constants from './../../constantFile.js';
+import complaintContract from './../../complaintContract.json';
 
 const User = () => {
     //Variable y setter para mostrar u ocultar el formulario
     const [showForm, setShowForm] = useState(false);
 
-    //Variable que contiene los datos del formulario
-    const [input, setInput] = useState({explanation : ''});
+    //datos del formulario
+    const [input, setInput] = useState('');
+    const [company, setCompany] = useState('');
 
     //Se obtiene el usuario (se comprueba si hay un usuario logeado o no)
     const user = React.useContext(context);
@@ -24,22 +26,41 @@ const User = () => {
     //Desplegar el formulario
     const showFormF = () => { setShowForm(!showForm); };
 
-    //Cuentas de metamask
-    const [accounts, setAccounts] = useState([]);
-
+    const handleCompany = (e) => { setCompany(e.target.value); }
 
     //Se guardan los datos escritos en el formulario
-    const handleInput = (e) => { setInput({...input, [e.target.name] : e.target.value }); };
+    const handleInput = (e) => { 
+         setInput(e.target.value); 
+        //setInput(oldInput => ({...oldInput, [e.target.name] : e.target.value })); 
+    };
 
     //Para comprobar si tienen proveedor (Metamask)
     const hasProvider = !! Web3.givenProvider;
 
+    //Variable que va a contener las empresas que apareceran como opcion en el formulario
+    const [companies, setCompanies] = useState([]);
+
+    //Obtenemos las empresas del smart contract, conectandonos al nodo de Infura
+    useEffect(() => {
+
+        const infuraUrl = constants.INFURA_URL;
+        //Crea una instancia para comunicarse con el nodo indicado
+        const web3 = new Web3(new Web3.providers.HttpProvider(infuraUrl));
+        //Se conectaria con el contrato
+        const contract = new web3.eth.Contract(complaintContract.abi, constants.CONTRACT_ADDRESS);
+        //Obtenemos el array de empresas
+        contract.methods.getCompanies().call().then(response => setCompanies(response));
+    },[]);
+
     //Funcion para el submit
-    const handleSubmit = (e) => { 
+    const handleSubmit = async(e) => { 
         e.preventDefault();
         //Si todavia no se ha conectado con Metamask entonces aparece un popup para la conexion
-        if(accounts.length === 0 && hasProvider) Web3.givenProvider.send('eth_requestAccounts').then(res => setAccounts(res.result));
-
+        const web3 = new Web3(window.web3.currentProvider);
+        const accounts = await window.ethereum.enable();
+        const contract = new web3.eth.Contract(complaintContract.abi, constants.CONTRACT_ADDRESS);
+        await contract.methods.newComplaint(company, user, input).send({from:accounts[0]});
+        setInput("");
     };
    
     if(!user){
@@ -70,6 +91,10 @@ const User = () => {
             {showForm && hasProvider && (
                 <form onSubmit={handleSubmit} className={styles.reportForm}>
                   <label>Report Form</label>
+                  <label>In which company did the incident take place?</label>
+                  <select onChange={handleCompany}>
+                     {companies.map(item => <option value={item} key={item}>{item}</option>)}
+                  </select>
                   <label>Please, explain briefly what happened.</label>
                   <input type="textarea" name="explanation" value={input.explanation} onChange={handleInput} />
                   <button>Submit</button>
