@@ -7,6 +7,7 @@ import CompanyTable from './CompanyTable'
 import HeaderCompany from "./HeaderCompany";
 import '../Graphics/graphics.css';
 import SendIcon from '@material-ui/icons/Send';
+import { useHistory } from "react-router-dom";
 
 import GraphicsLayout from "../Graphics/GraphicsLayout";
 
@@ -56,6 +57,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Company (){
         const classes = useStyles();
+        let history = useHistory();
+
+        const form = () => {
+          history.push('/form')
+        }
         return (
             
 
@@ -91,7 +97,7 @@ function Company (){
 
                 <Grid container spacing={2} direction = "column">
                     <Grid item>
-                      <Button className = {classes.button} variant="contained" endIcon={<SendIcon />} >
+                      <Button className = {classes.button} onClick = {form} variant="contained" endIcon={<SendIcon />} >
                        Denunciar
                       </Button>
                     </Grid> 

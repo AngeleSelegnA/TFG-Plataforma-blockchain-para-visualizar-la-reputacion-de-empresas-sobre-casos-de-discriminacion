@@ -106,7 +106,7 @@ const Home = () => {
     
     return <div className={theme.root}>
         <header >
-         <img class="ui fluid image" src={header}/>
+         <img class="ui fluid image" src={header} />
         </header>
         <h1>TÍTULO/LEMA</h1>
         <Carousel
