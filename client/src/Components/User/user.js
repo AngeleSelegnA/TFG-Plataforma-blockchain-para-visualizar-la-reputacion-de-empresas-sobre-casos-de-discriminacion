@@ -5,6 +5,7 @@ import {context} from '../../contextProvider.js';
 import Web3 from 'web3';
 import * as constants from './../../constantFile.js';
 import complaintContract from './../../complaintContract.json';
+import { makeStyles } from '@material-ui/core/styles'
 
 const User = () => {
     //Variable y setter para mostrar u ocultar el formulario
@@ -114,8 +115,16 @@ const User = () => {
         setDonationQuantity(0);
     }
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+          backgroundColor: theme.palette.primary.main
+        }
+    }));
+
+    const theme = useStyles();
+      
     if(!user){
-        return <div className={styles.container}>
+        return <div className={styles.container} >
             <div className={styles.loginGeneral}>
                 <div className={styles.loginBox}>
                     <h1>Login</h1>
