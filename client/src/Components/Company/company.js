@@ -8,6 +8,7 @@ import HeaderCompany from "./HeaderCompany";
 import '../Graphics/graphics.css';
 import SendIcon from '@material-ui/icons/Send';
 import { useHistory } from "react-router-dom";
+import BarChartLayaout from '../Graphics/BarCharLayaout.js';
 
 import GraphicsLayout from "../Graphics/GraphicsLayout";
 
@@ -147,7 +148,7 @@ function Company (){
 
               <Paper className={classes.paperGraphics}>
                 <Grid container padding = {20} spacing={2}  direction = "column">
-                    <Grid item><GraphicsLayout/></Grid> 
+                    <Grid item><BarChartLayaout titulo="Denuncias por género"/> </Grid> 
                 </Grid> 
               </Paper>
             </div>

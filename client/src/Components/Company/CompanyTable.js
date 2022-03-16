@@ -11,7 +11,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import {Grid, Button, Box} from '@material-ui/core';
-
+import historyItem from './historyItem'
 
 
 const columns=[
@@ -44,7 +44,7 @@ const columns=[
     }
   },
 
-  { title: "Descripción", field: "desc",
+ /*  { title: "Descripción", field: "desc",
   cellStyle: {
       backgroundColor: '#ede7f6',
       color: '#3949ab'
@@ -52,7 +52,7 @@ const columns=[
     headerStyle: {
         backgroundColor: '#9fa8da',
       }
-    },
+    }, */
 
   {title: "Denunciada antes", field: "reported",  type: "bool",
   cellStyle: {
@@ -69,7 +69,6 @@ const data=[
   {
   tipoDenuncia: "Género",
   fecha: "1/1/2022",
-  desc: "Esto será un link",
   reported: true,
   imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815547_960_720.png'
   },
@@ -77,28 +76,24 @@ const data=[
   {
   tipoDenuncia: "Otro",
   fecha: "3/1/2022",
-  desc: "Esto será un link",
   reported: false,
   imageUrl: 'https://www.todofondos.net/wp-content/uploads/fondos-de-colores-fondos-de-pantalla.-fondo-de-pantalla-lisos.jpg'
   },
   {
   tipoDenuncia: "Etnia",
   fecha: "1/2/2022",
-  desc: "Esto será un link",
   reported: false,
   imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815546_960_720.png'
   },
   {
   tipoDenuncia: "Política",
   fecha: "3/11/2021",
-  desc: "Esto será un link",
   reported: true,
   imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzhWS9iJ40wlMrZDIazgd8ilESJIB91r08wjN_FLrExTrtrzbUq8dyggaig3u_bobzuxI&usqp=CAU'
   },
   {
     tipoDenuncia: "Etnia",
     fecha: "12/2/2022",
-    desc: "Esto será un link",
     reported: true,
     imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815546_960_720.png'
     },
@@ -116,9 +111,10 @@ function CompanyTable() {
       actions = {[
           {
           icon: 'favorite_border',
-          tooltip: 'Apoya esta denuncia', 
-          onClick: (event, rowData) => window.confirm("¿Deseas apoyar esta denuncia de tipo " + rowData.tipoDenuncia + "?")
-          },
+          tooltip: 'Ver la experiencia', 
+          /* antes en vez de aler window.confirm para tener aceptar y cancelar */
+          onClick: (event, rowData) => alert("Mi experiencia fue horrible. Mi jefe me hacía sentir inferior por el simple echo de ser mujer. No me dejaba tener un despacho y me supervisaban constantemente. El lenguaje era agresivo.")
+        },
       ]}
       components={{
           /* FilterRow: props => (
@@ -159,10 +155,10 @@ function CompanyTable() {
               onClick={(event) => props.action.onClick(event, props.data)}
               color="primary"
               variant="contained"
-              style={{textTransform: 'none'}}
+              // style={{textTransform: 'none'}}
               size="small"
             >
-              Apoyar
+              Leer experiencia
             </Button>
           ),
           Toolbar: props => (
@@ -181,7 +177,7 @@ function CompanyTable() {
           actionsColumnIndex: -1,
    
           headerStyle: {
-              width: 26,
+              width: 56,
               whiteSpace: 'nowrap',
               textAlign: 'left',
               flexDirection: 'row',
@@ -199,7 +195,7 @@ function CompanyTable() {
       }}
       localization = {{
           header: {
-              actions: "Apoyar"
+              actions: "Descripción"
               
           },
           

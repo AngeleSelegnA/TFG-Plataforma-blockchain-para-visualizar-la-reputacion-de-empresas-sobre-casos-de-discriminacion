@@ -1,13 +1,17 @@
-import { useEffect, useState} from 'react';
+import { createContext, useEffect, useState} from 'react';
 import Web3 from 'web3';
 import {CardGroup } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as constants from './../../constantFile.js';
-import complaintContract from './../../complaintContract.json';
+import * as constants from '../../constantFile.js';
+import complaintContract from '../../complaintContract.json';
 import CompanyItem from './CompanyItem.js';
 import { makeStyles } from '@material-ui/core/styles'
 import  Carousel  from  'semantic-ui-carousel-react';
 import header from  '../../Images/header.jpg';
+import {Grid} from '@material-ui/core';
+import BarChartLayaout from '../Graphics/BarCharLayaout.js';
+import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,6 +25,7 @@ const Home = () => {
     const [companies, setCompanies] = useState([]);
     const [reputation, setReputation] = useState([]);
     const theme = useStyles();
+    //const[company, onFilterChanged]=useState([]);
    
     useEffect(() => {
     //Para conectarse al smart contract
@@ -43,40 +48,55 @@ const Home = () => {
     //Unimos reputaciones y empresas
     let cards = companies.map((e, i) => [e, reputation[i]]);
 
+    var resto = companies.length%3;
+    let n_elems=0;
+    if( resto==0){
+        n_elems=companies.length/3;
+    }
+    else{
+        n_elems=companies.length/3+1;
+    }
+    
     
     let  elements  = [
 		{
-			render:()=>{
-				return (
-                    <div class="ui two column grid">
+            
+            render:()=>{
+                return (
+                    <div class="ui three column grid">
                     <div class="row">
-                        <CardGroup itemsPerRow={2}>
+                        <CardGroup itemsPerRow={3}>
                         <div class="column"></div>
-                        <CompanyItem key={0} name={companies[0]} reputation={reputation[0]}/>
+                        <CompanyItem key={2} name={companies[2]} reputation={reputation[2]}/>
                         <div class="column"></div>
-                        <CompanyItem key={1} name={companies[1]} reputation={reputation[1]}/>
+                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
+                        <div class="column"></div>
+                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
                         </CardGroup>
                     </div>
+                    
                     </div>
             
-
                 )
-			}
+            }
             
 		},
 
         {
             render:()=>{
                 return (
-                    <div class="ui two column grid">
+                    <div class="ui three column grid">
                     <div class="row">
-                        <CardGroup itemsPerRow={2}>
+                        <CardGroup itemsPerRow={3}>
                         <div class="column"></div>
                         <CompanyItem key={2} name={companies[2]} reputation={reputation[2]}/>
                         <div class="column"></div>
                         <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
+                        <div class="column"></div>
+                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
                         </CardGroup>
                     </div>
+                    
                     </div>
             
                 )
@@ -84,20 +104,21 @@ const Home = () => {
         },
         {
             render:()=>{
-                return(
-                    <div class="ui two column grid">
+                return (
+                    <div class="ui three column grid">
                     <div class="row">
-                        <CardGroup itemsPerRow={2}>
+                        <CardGroup itemsPerRow={3}>
                         <div class="column"></div>
-                        <CompanyItem key={4} image= {"telefonica.png"} name={companies[4]} reputation={reputation[4]}/>
+                        <CompanyItem key={2} name={companies[2]} reputation={reputation[2]}/>
                         <div class="column"></div>
-                        <CompanyItem key={5} name={companies[5]} reputation={reputation[5]}/>
+                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
+                        <div class="column"></div>
+                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
                         </CardGroup>
                     </div>
-
+                    
                     </div>
             
-                   
                 )
             }
         }
@@ -106,16 +127,35 @@ const Home = () => {
     
     return <div className={theme.root}>
         <header >
-         <img class="ui fluid image" src={header} />
+         <img class="ui fluid image" src={header}/>
         </header>
         <h1>TÍTULO/LEMA</h1>
-        <Carousel
-				elements  =  {  elements  }
-				duration  ={3000}
-				animation  ='slide left'
-				showNextPrev  =  {false}
-				showIndicators  ={true}
-		/>
+        <Button className="Ver todo"/>
+        <Grid container spacing={1} padding = {50} direction = "column" >
+            <Carousel
+                    elements  =  {  elements  }
+                    duration  ={3000}
+                    animation  ='slide left'
+                    showNextPrev  =  {false}
+                    showIndicators  ={true}
+               
+            />
+         </Grid>
+       
+
+        <h2>Gráficas generales</h2>
+
+        <Grid container spacing={2} padding = {40} class = 'Box' >
+            <Grid item xs={6}> 
+                <BarChartLayaout titulo="Top 5 mejor valoradas"/> 
+            </Grid>
+            <Grid item xs={6}> 
+                <BarChartLayaout titulo="Denuncias por género"/> 
+            </Grid>
+                
+        </Grid>
+        
+        
 
 
         </div>
