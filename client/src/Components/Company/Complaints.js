@@ -3,7 +3,6 @@ import { Segment } from 'semantic-ui-react'
 
 const Complaints = () => (
   <Segment.Group>
-    
     <Segment>Denuncia 1</Segment>
     <Segment>Denuncia 2</Segment>
     <Segment>Denuncia 3</Segment>

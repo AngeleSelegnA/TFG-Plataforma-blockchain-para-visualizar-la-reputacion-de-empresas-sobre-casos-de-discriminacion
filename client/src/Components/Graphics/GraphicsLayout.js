@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
       <Card>
         <CardHeader title="Gráfica" />
         <CardContent>
-          <Box class = 'Box'
+          <Box className = 'Box'
             sx={{
               height: 300,
               position: 'relative'

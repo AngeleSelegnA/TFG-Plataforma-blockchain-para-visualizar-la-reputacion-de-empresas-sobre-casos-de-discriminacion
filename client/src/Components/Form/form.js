@@ -40,15 +40,15 @@ const Form = () => {
 
   return(
      
-    <form class="ui form">
-      <h1 class="ui dividing header">Formulario de Denuncia</h1>
-      <div class="field">
+    <form className="ui form">
+      <h1 className="ui dividing header">Formulario de Denuncia</h1>
+      <div className="field">
         
-        <div class="two fields">
+        <div className="two fields">
           {/*Nombre empresa*/}
-          <div class="required field">
+          <div className="required field">
             <label>Nombre de la empresa</label>
-            <select class="ui fluid dropdown">
+            <select className="ui fluid dropdown">
               <option value="">Empresa</option>
               <option value="Aa">Telefónica</option>
               <option value="Ba">HP</option>
@@ -63,9 +63,9 @@ const Form = () => {
             </select>
           </div>
           {/*Relación con empresa*/}
-          <div class="field">
+          <div className="field">
             <label>Relación actual con la empresa</label>
-            <select class="ui fluid dropdown">
+            <select className="ui fluid dropdown">
               <option value="">Relación</option>
               <option value="Aaa">Sigo trabajando</option>
               <option value="Aab">Me despidieron</option>
@@ -77,37 +77,37 @@ const Form = () => {
       </div>
 
 
-      <div class="three fields">
+      <div className="three fields">
 
         {/*Denunciado antes*/}
-        <div class="inline fields">
+        <div className="inline fields">
           <label for="fruit">¿Has denunciado anteriormente?</label>
-          <div class="field">
-            <div class="ui radio checkbox">
-              <input type="radio" name="fruit" checked="" tabindex="0" class="hidden"/>
+          <div className="field">
+            <div className="ui radio checkbox">
+              <input type="radio" name="fruit" checked="" tabindex="0" className="hidden"/>
               <label>Sí</label>
             </div>
           </div>
 
-          <div class="field">
-            <div class="ui radio checkbox">
-              <input type="radio" name="fruit" tabindex="0" class="hidden"/>
+          <div className="field">
+            <div className="ui radio checkbox">
+              <input type="radio" name="fruit" tabindex="0" className="hidden"/>
               <label>No</label>
             </div>
           </div>
           
         </div>
         {/*Mediante que medio denunciaste*/}
-        <div class="field">
+        <div className="field">
           <label>Medio</label>
           <input type="text" name="card[number]" maxlength="16" placeholder="En caso afirmativo, ¿mediante qué medio?"/>
         </div>
         {/*Fecha del suceso*/}
-        <div class="field">
+        <div className="field">
         <label>Fecha aproximada del suceso o del inicio de este</label>
-        <div class="two fields">
-          <div class="field">
-            <select class="ui fluid search dropdown" name="card[expire-month]">
+        <div className="two fields">
+          <div className="field">
+            <select className="ui fluid search dropdown" name="card[expire-month]">
               <option value="">Mes</option>
               <option value="1">Enero</option>
               <option value="2">Febrero</option>
@@ -123,7 +123,7 @@ const Form = () => {
               <option value="12">Diciembre</option>
             </select>
           </div>
-          <div class="field">
+          <div className="field">
             <input type="text" name="card[expire-year]" maxlength="4" placeholder="Año"/>
           </div>
         </div>
@@ -132,11 +132,11 @@ const Form = () => {
         
         
 
-    <div class="field">      
+    <div className="field">      
       {/*Tipo de denuncia*/}
-      <div class="required field">
+      <div className="required field">
         <label>Tipo de denuncia</label>
-        <select class="ui fluid dropdown">
+        <select className="ui fluid dropdown">
           <option value="">Tipo</option>
           <option value="A">Etnia</option>
           <option value="B">Género</option>
@@ -153,11 +153,11 @@ const Form = () => {
     </div>
 
     {/*El usuario deberá solo responder obligatoriamente a aquella relacionada con su tipo de denuncia. El resto son opcionales*/}
-    <div class="four fields">
+    <div className="four fields">
         {/*País*/}
-        <div class="field">
+        <div className="field">
         <label>Si tu denuncia es de etnia</label>
-          <select multiple="" class="ui dropdown">
+          <select multiple="" className="ui dropdown">
           <option value="">Selecciona tu país de origen</option>
           <option value="AF">Afghanistan</option>
           <option value="AX">Åland Islands</option>
@@ -411,44 +411,44 @@ const Form = () => {
         </select>
         </div>
         {/*Edad*/}
-        <div class="field">
+        <div className="field">
           <label>Si tu denuncia es de edad</label>
           <input type="text" name="card[number]" maxlength="16" placeholder="Edad"/>
         </div>
         {/*Religión*/}
-        <div class="field">
+        <div className="field">
           <label>Si tu denuncia es de religión</label>
           <input type="text" name="card[cvc]" maxlength="3" placeholder="Etnia"/>
         </div>
         {/*Género*/}
-        <div class="field">
+        <div className="field">
           <label>Si tu denuncia es de género</label>
           <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
         </div>
       </div>
-      <div class="five fields">
+      <div className="five fields">
         {/*Maltrato*/}
-        <div class="field">
+        <div className="field">
           <label>Si tu denuncia es de maltrato</label>
           <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
         </div>
         {/*Condición sexual*/}
-        <div class="field">
+        <div className="field">
           <label>Si tu denuncia es de condición sexual</label>
           <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
         </div>
         {/*Discapacidad*/}
-        <div class="field">
+        <div className="field">
           <label>Si tu denuncia es de discapacidad</label>
           <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
         </div>
         {/*Mobbing*/}
-        <div class="field">
+        <div className="field">
           <label>Si tu denuncia es de mobbing</label>
           <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
         </div>
         {/*Explotación*/}
-         <div class="field">
+         <div className="field">
           <label>Si tu denuncia es de explotación</label>
           <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
         </div>
@@ -459,7 +459,7 @@ const Form = () => {
 
 
     {/*El usuario contará su historia*/} 
-    <div class="required field">
+    <div className="required field">
     <label >Descripción del suceso</label>
         <input type="text" name="card[number]" maxlength="16" placeholder="Cuéntanos tu hisoria"/>
     </div>
@@ -467,17 +467,17 @@ const Form = () => {
 
       
       {/*Botón para permitir compartir la historia. No es obligatorio para el usuario*/}
-      <div class="ui segment">
-        <div class="field">
-          <div class="ui toggle checkbox">
-          <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden"/>
+      <div className="ui segment">
+        <div className="field">
+          <div className="ui toggle checkbox">
+          <div className="ui checkbox">
+            <input type="checkbox" tabindex="0" className="hidden"/>
             <label>Acepto que mi historia aparezca publicada de forma anónima</label>
           </div>
           </div>
         </div>
       </div>
-      <div class="ui button" tabindex="0">Enviar formulario</div>
+      <div className="ui button" tabindex="0">Enviar formulario</div>
     </form>
   );
 };

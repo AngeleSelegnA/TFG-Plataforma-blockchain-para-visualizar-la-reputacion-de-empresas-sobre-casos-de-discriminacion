@@ -12,7 +12,6 @@ import {Grid} from '@material-ui/core';
 import BarChartLayaout from '../Graphics/BarCharLayaout.js';
 import Button from '@material-ui/core/Button';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: theme.palette.primary.main
@@ -46,7 +45,7 @@ const Home = () => {
     },[]);
     
     //Unimos reputaciones y empresas
-    let cards = companies.map((e, i) => [e, reputation[i]]);
+    const cards = companies.map((e, i) => [e, reputation[i]]);
 
     var resto = companies.length%3;
     let n_elems=0;
@@ -56,111 +55,95 @@ const Home = () => {
     else{
         n_elems=companies.length/3+1;
     }
-    
-    
+
     let  elements  = [
-		{
-            
+		{ 
+
             render:()=>{
                 return (
-                    <div class="ui three column grid">
-                    <div class="row">
-                        <CardGroup itemsPerRow={3}>
-                        <div class="column"></div>
-                        <CompanyItem key={2} name={companies[2]} reputation={reputation[2]}/>
-                        <div class="column"></div>
-                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
-                        <div class="column"></div>
-                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
-                        </CardGroup>
+                    <div className="ui three column grid">
+                        <div className="row">
+                            <CardGroup itemsPerRow={3}>
+                            <div className="column"></div>
+                            <CompanyItem key={1} name={companies[0]} reputation={reputation[0]}/>
+                            <div className="column"></div>
+                            <CompanyItem key={2} name={companies[1]} reputation={reputation[1]}/>
+                            <div className="column"></div>
+                            <CompanyItem key={3} name={companies[2]} reputation={reputation[2]}/>
+                            </CardGroup>
+                        </div>
                     </div>
-                    
-                    </div>
-            
                 )
-            }
-            
+            }   
 		},
-
         {
             render:()=>{
                 return (
-                    <div class="ui three column grid">
-                    <div class="row">
-                        <CardGroup itemsPerRow={3}>
-                        <div class="column"></div>
-                        <CompanyItem key={2} name={companies[2]} reputation={reputation[2]}/>
-                        <div class="column"></div>
-                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
-                        <div class="column"></div>
-                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
-                        </CardGroup>
+                    <div className="ui three column grid">
+                        <div className="row">
+                            <CardGroup itemsPerRow={3}>
+                            <div className="column"></div>
+                            <CompanyItem key={1} name={companies[4]} reputation={reputation[4]}/>
+                            <div className="column"></div>
+                            <CompanyItem key={2} name={companies[5]} reputation={reputation[5]}/>
+                            <div className="column"></div>
+                            <CompanyItem key={3} name={companies[6]} reputation={reputation[6]}/>
+                            </CardGroup>
+                        </div>
                     </div>
-                    
-                    </div>
-            
                 )
             }
         },
         {
             render:()=>{
                 return (
-                    <div class="ui three column grid">
-                    <div class="row">
-                        <CardGroup itemsPerRow={3}>
-                        <div class="column"></div>
-                        <CompanyItem key={2} name={companies[2]} reputation={reputation[2]}/>
-                        <div class="column"></div>
-                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
-                        <div class="column"></div>
-                        <CompanyItem key={3} name={companies[3]} reputation={reputation[3]}/>
-                        </CardGroup>
+                    <div className="ui three column grid">
+                        <div className="row">
+                            <CardGroup itemsPerRow={3}>
+                                <div className="column"></div>
+                                <CompanyItem key={1} name={companies[7]} reputation={reputation[7]}/>
+                                <div className="column"></div>
+                                <CompanyItem key={2} name={companies[8]} reputation={reputation[8]}/>
+                                <div className="column"></div>
+                                <CompanyItem key={3} name={companies[9]} reputation={reputation[9]}/>
+                            </CardGroup>
+                        </div>
                     </div>
-                    
-                    </div>
-            
                 )
             }
         }
-	]
+    ]
   
     
     return <div className={theme.root}>
         <header >
-         <img class="ui fluid image" src={header}/>
+            <img className="ui fluid image" src={header}/>
         </header>
-        <h1>TÍTULO/LEMA</h1>
-        <Button className="Ver todo"/>
-        <Grid container spacing={1} padding = {50} direction = "column" >
-            <Carousel
-                    elements  =  {  elements  }
-                    duration  ={3000}
-                    animation  ='slide left'
-                    showNextPrev  =  {false}
-                    showIndicators  ={true}
-               
-            />
-         </Grid>
-       
 
+        <h1>TÍTULO/LEMA</h1>
+
+        <Button className="Ver todo"/>
+        <Grid container spacing={1} padding ={50} direction ="column">
+            <Carousel
+                    elements = {elements}
+                    duration ={3000}
+                    animation = 'slide left'
+                    showNextPrev = {false}
+                    showIndicators = {true}   
+            />
+        </Grid>
+       
         <h2>Gráficas generales</h2>
 
-        <Grid container spacing={2} padding = {40} class = 'Box' >
+        <Grid container spacing={2} padding = {40} className = 'Box' >
             <Grid item xs={6}> 
                 <BarChartLayaout titulo="Top 5 mejor valoradas"/> 
             </Grid>
             <Grid item xs={6}> 
                 <BarChartLayaout titulo="Denuncias por género"/> 
             </Grid>
-                
         </Grid>
-        
-        
-
-
-        </div>
-    
-
+    </div>
 }
 
 export default Home;
