@@ -13,7 +13,7 @@ const CompanyItem =({name,reputation,urlimg}) =>{
         <Image
           floated='right'
           size='small'
-          src={'./Images/linkedin_logo.png'}
+          src={'../../../Images/telefonica.png'}
         />
         <Card.Header>Mi experiencia:</Card.Header>
       </Card.Content>

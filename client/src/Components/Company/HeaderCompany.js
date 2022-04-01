@@ -13,4 +13,4 @@ const HeaderCompany = ({ name }) => (
   </div>
 )
 
-export default  HeaderCompany 
+export default HeaderCompany;

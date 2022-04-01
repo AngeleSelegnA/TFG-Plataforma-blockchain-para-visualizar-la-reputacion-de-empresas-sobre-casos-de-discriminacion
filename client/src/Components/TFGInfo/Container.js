@@ -28,7 +28,8 @@ const ContainerExampleText = () => {
                     </Grid.Row>
                     <Grid.Row >
                         
-                        <Typography
+                        <Typography 
+                            component = {'span'}
                             sx={{
                                 fontSize: '1.5rem',
                                 fontWeight: 500,

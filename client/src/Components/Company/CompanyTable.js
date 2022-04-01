@@ -51,11 +51,12 @@ const columns=[
     },
 ]
 
+
 const CompanyTable = ({ complaints }) => {
 
   let data = []
 
-  for(let i = 0; i < (complaints.length ); ++i){ 
+  for(let i = 0; i < complaints.length; ++i){
     
     data.push({
       tipoDenuncia: complaints[i].typeC,
@@ -63,8 +64,7 @@ const CompanyTable = ({ complaints }) => {
       text: complaints[i].text,
       consent: complaints[i].consent,
       reported: false
-    }); 
-
+    });
   }
 
   return (
@@ -82,11 +82,6 @@ const CompanyTable = ({ complaints }) => {
         },
       ]}
       components={{
-          /* FilterRow: props => (
-            <div style={{color: '#A04000', backgroundColor: '#FAD7A0'}}>
-               <MTableFilterRow {...props} />
-            </div>
-           ), */
            FilterRow: (rowProps) => {
             const { columns, onFilterChanged } = rowProps;
   
@@ -114,22 +109,19 @@ const CompanyTable = ({ complaints }) => {
             );
           },
           Action: props => (
-            
             <Button
-              //style={{color: '#A04000', backgroundColor: '#ede7f6'}}
               onClick={(event) => props.action.onClick(event, props.data)}
               color= {props.data.consent ? "primary" : "secondary"}
               variant="contained"
-              textColor = "fff"
+              textcolor = "fff"
               disabled = {!props.data.consent}
-              // style={{textTransform: 'none'}}
               size="small"
             >
               Leer experiencia
             </Button>
           ),
           Toolbar: props => (
-            <div style={{color: 'white', backgroundColor: ' #3880d8 '}}>
+            <div style={{color: 'white', backgroundColor: '#3880d8'}}>
                <MTableToolbar {...props} />
             </div>
           ),

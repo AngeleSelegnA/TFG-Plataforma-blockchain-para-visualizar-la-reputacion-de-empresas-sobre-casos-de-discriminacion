@@ -2,7 +2,6 @@ import './App.css';
 import React from 'react'
 import { BrowserRouter as Router, Switch , Route } from 'react-router-dom';
 import Home from './Components/Home/home.js';
-import User from './Components/User/user.js';
 import Menu from './Components/Menu/menu.js';
 import Form from './Components/Form/form.js';
 
@@ -19,10 +18,9 @@ function App() {
         <Router>
           <Menu />
           <Switch>
-            <Route path="/form" component={ Form }></Route>
+            <Route path="/company/:id/form" component={ Form }></Route>
             <Route path="/info" component={ Info }></Route>
-            <Route path="/company" component={ Company }></Route>
-            <Route path="/user" component={ User }></Route>
+            <Route path="/company/:id" component={ Company }></Route>
             <Route path="/" component={ Home }></Route>
           </Switch>
         </Router>

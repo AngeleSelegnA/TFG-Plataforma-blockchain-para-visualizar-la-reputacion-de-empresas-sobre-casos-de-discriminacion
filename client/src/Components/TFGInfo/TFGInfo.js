@@ -2,12 +2,13 @@ import React, {Component} from "react";
 import {Card, Grid} from 'semantic-ui-react';
 import Container from './Container';
 import Header from './Header';
+import BalanceCard from './BalanceCard';
 import DonationCard from './DonationCard';
 import MemberCard from './MemberCard';
 
 import { makeStyles } from '@material-ui/core/styles'
 
-    
+
 function  getInitialProps () {
     const info = [
         {
@@ -40,7 +41,7 @@ function  getInitialProps () {
             meta: 'Miembro 6',
             description: 'Empresa especializada en consultoría'
         }
-    
+
     ];
     return {info};
     //es lo mismo que poner return{campaings:campaigns}
@@ -50,39 +51,40 @@ function  getInitialProps () {
 function renderInfo(){
     const info = [
         {
-            header: 'Alex',
+            header: 'Ana Belén Duarte',
             meta: 'Estudiante',
             description: 'Añadir info'
         },
         {
-            header: 'Ana',
+            header: 'Mª Ángeles Plaza',
             meta: 'Estudiante',
             description: 'Añadir info'
         },
         {
-            header: 'Javi',
+            header: 'Alejandro Ramírez',
             meta: 'Estudiante',
             description: 'Añadir info'
         },
         {
-            header: 'Ángeles',
+            header: 'David Seijas',
             meta: 'Estudiante',
             description: 'Añadir info'
         },
         {
-            header: 'Jorge',
+            header: 'Jorge del Valle',
             meta: 'Estudiante',
             description: 'Añadir info'
         },
         {
-            header: 'David',
+            header: 'Javier Verde',
             meta: 'Estudiante',
             description: 'Añadir info'
         }
-    
+
     ];
     return <Card.Group items = {info} />;
 }
+
 
 
 
@@ -90,110 +92,87 @@ const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: theme.palette.primary.main
     },
-    
+
   }));
 
-  
+
 function Info (){
 
-        const theme = useStyles();
-        return (
-
-            
-            <div className={theme.root}>
-                <Grid>
-                    
-                        
-                <Grid.Row >
+    const theme = useStyles();
+    return (
+        <div className={theme.root}>
+            <Grid>
+                <Grid.Row>
                     <Grid.Column width = {16}>
                         <Header/>
                     </Grid.Column>
                 </Grid.Row>
-
-                <Grid.Row >
-                    <Grid.Column width = {8}>
-                        <Grid.Row>
-                            <Grid.Column width = {1} >
-                                
-                            </Grid.Column>
-                            <Grid.Column width = {6} >
-                                <DonationCard/>
-                            </Grid.Column>
-                            <Grid.Column width = {1} >
-                                    
-                            </Grid.Column>
-                                
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column width = {2} >
-                                
+                <Grid.Column width = {8}>
+                    <Grid>
+                    <Grid.Row columns = {2}>
+                                <Grid.Column stretched>
+                                    <BalanceCard/>
                                 </Grid.Column>
-                            <Grid.Column width = {6} >
-                                <Container/>
-                            </Grid.Column>
-                            <Grid.Column width = {2} >
-                                
-                            </Grid.Column>
-                        </Grid.Row>
+                                <Grid.Column stretched>
+                                    <DonationCard/>
+                                </Grid.Column>
+                            </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Container/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    </Grid>
+                </Grid.Column>
+                <Grid.Column width = {4} >
+                    <Grid.Row>
+                        <Grid.Column width = {4} >
+                            <MemberCard i={0}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width = {4} >
+                            <MemberCard i={1}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width = {4} >
+                            <MemberCard i={2}/>
+                        </Grid.Column>
+                    </Grid.Row>
                     </Grid.Column>
-
-                        
                     <Grid.Column width = {4} >
-                        
-                        <Grid.Row>
-                            <Grid.Column width = {4} >
-                                <MemberCard/>
-                            </Grid.Column> 
-                            
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column width = {4} >
-                                <MemberCard/>
-                            </Grid.Column> 
-                            
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column width = {4} >
-                                <MemberCard/>
-                            </Grid.Column> 
-                             
-                        </Grid.Row>
-                    </Grid.Column> 
 
-
-                    <Grid.Column width = {4} >
-                        
                         <Grid.Row>
                             <Grid.Column width = {4} >
-                                <MemberCard/>
-                            </Grid.Column> 
-                            
+                                <MemberCard i={3}/>
+                            </Grid.Column>
+
                         </Grid.Row>
                         <Grid.Row></Grid.Row>
                         <Grid.Row>
                             <Grid.Column width = {4} >
-                                <MemberCard/>
-                            </Grid.Column> 
-                            
+                                <MemberCard i={4}/>
+                            </Grid.Column>
+
                         </Grid.Row>
                         <Grid.Row ></Grid.Row>
                         <Grid.Row>
                             <Grid.Column width = {4} >
-                                <MemberCard/>
-                            </Grid.Column> 
-                             
+                                <MemberCard i={5}/>
+                            </Grid.Column>
+
                         </Grid.Row>
                     </Grid.Column>
 
-                    
-                </Grid.Row>
+
                 </Grid>
             </div>
 
         )
 
 
-    
+
 }
 
 export default Info;

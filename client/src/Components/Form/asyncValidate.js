@@ -7,7 +7,7 @@ const asyncValidate = (values /*, dispatch */) => {
       // eslint-disable-next-line no-throw-literal
       throw { email: 'Email already Exists' }
     }
-  })
+  });
 }
 
 export default asyncValidate
