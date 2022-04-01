@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useState, useContext, useEffect }  from 'react';
+import { context } from './../../contextProvider.js';
+import Web3 from 'web3';
+import * as constants from './../../constantFile.js';
+import complaintContract from './../../complaintContract.json';
 import MaterialTable , { MTableToolbar, MTableFilterRow, MTablePagination } from "material-table";
 import FilterListIcon from '@material-ui/icons/FilterList';
 import SearchIcon from '@material-ui/icons/Search';
@@ -12,98 +16,59 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import {Grid, Button, Box} from '@material-ui/core';
 import historyItem from './historyItem'
+import { letterSpacing } from '@mui/system';
 
 
 const columns=[
-  { title: 'Avatar', field: 'imageUrl', render: rowData => <img src={rowData.imageUrl} style={{width: 40, borderRadius: '50%'}}/>,
-  cellStyle: {
-      backgroundColor: '#ede7f6',
-      color: '#3949ab'
-    },
-    headerStyle: {
-        backgroundColor: '#9fa8da',
-      }
-   },
   { title: "Tipo de denuncia", field: "tipoDenuncia" ,
   cellStyle: {
-    backgroundColor: '#ede7f6',
-    color: '#3949ab'
+    backgroundColor: '#fff',
+    color: '#276fe6'
   },
   headerStyle: {
-      backgroundColor: '#9fa8da',
+      backgroundColor: '#6da1df ',
     }
   },
 
   { title: "Fecha", field: "fecha" ,
   cellStyle: {
-    backgroundColor: '#ede7f6',
-    color: '#3949ab'
+    backgroundColor: '#fff',
+    color: '#276fe6'
   },
   headerStyle: {
-      backgroundColor: '#9fa8da',
+      backgroundColor: '#6da1df',
     }
   },
 
- /*  { title: "Descripción", field: "desc",
-  cellStyle: {
-      backgroundColor: '#ede7f6',
-      color: '#3949ab'
-    },
-    headerStyle: {
-        backgroundColor: '#9fa8da',
-      }
-    }, */
-
   {title: "Denunciada antes", field: "reported",  type: "bool",
   cellStyle: {
-      backgroundColor: '#ede7f6',
-      color: '#3949ab'
+      backgroundColor: '#fff',
+      color: '#276fe6'
     },
     headerStyle: {
-        backgroundColor: '#9fa8da',
+        backgroundColor: '#6da1df',
       }
     },
 ]
 
-const data=[
-  {
-  tipoDenuncia: "Género",
-  fecha: "1/1/2022",
-  reported: true,
-  imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815547_960_720.png'
-  },
-  
-  {
-  tipoDenuncia: "Otro",
-  fecha: "3/1/2022",
-  reported: false,
-  imageUrl: 'https://www.todofondos.net/wp-content/uploads/fondos-de-colores-fondos-de-pantalla.-fondo-de-pantalla-lisos.jpg'
-  },
-  {
-  tipoDenuncia: "Etnia",
-  fecha: "1/2/2022",
-  reported: false,
-  imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815546_960_720.png'
-  },
-  {
-  tipoDenuncia: "Política",
-  fecha: "3/11/2021",
-  reported: true,
-  imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzhWS9iJ40wlMrZDIazgd8ilESJIB91r08wjN_FLrExTrtrzbUq8dyggaig3u_bobzuxI&usqp=CAU'
-  },
-  {
-    tipoDenuncia: "Etnia",
-    fecha: "12/2/2022",
-    reported: true,
-    imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815546_960_720.png'
-    },
-  
-]
+const CompanyTable = ({ complaints }) => {
 
-function CompanyTable() {
+  let data = []
+
+  for(let i = 0; i < (complaints.length ); ++i){ 
+    
+    data.push({
+      tipoDenuncia: complaints[i].typeC,
+      fecha: complaints[i].dateC,
+      text: complaints[i].text,
+      consent: complaints[i].consent,
+      reported: false
+    }); 
+
+  }
+
   return (
-    <MaterialTable
-                          
+    <MaterialTable              
       columns = {columns}
       data = {data}
       title = "Lista de denuncias reportadas:"
@@ -111,9 +76,9 @@ function CompanyTable() {
       actions = {[
           {
           icon: 'favorite_border',
-          tooltip: 'Ver la experiencia', 
+          tooltip: 'Ver la experiencia',
           /* antes en vez de aler window.confirm para tener aceptar y cancelar */
-          onClick: (event, rowData) => alert("Mi experiencia fue horrible. Mi jefe me hacía sentir inferior por el simple echo de ser mujer. No me dejaba tener un despacho y me supervisaban constantemente. El lenguaje era agresivo.")
+          onClick: (event, rowData) => {rowData.consent ? alert(rowData.text) : alert("El denunciante no concede permisos para leer su experiencia")}
         },
       ]}
       components={{
@@ -127,7 +92,7 @@ function CompanyTable() {
   
             return (
               <>
-                <tr style={{color: '#A04000', backgroundColor: '#ede7f6'}}>
+                <tr style={{color: '#A04000', backgroundColor: '#fff'}}>
                   {columns.map((col) => {
                     if (col.field) {
                       return (
@@ -151,10 +116,12 @@ function CompanyTable() {
           Action: props => (
             
             <Button
-              style={{color: '#A04000', backgroundColor: '#ede7f6'}}
+              //style={{color: '#A04000', backgroundColor: '#ede7f6'}}
               onClick={(event) => props.action.onClick(event, props.data)}
-              color="primary"
+              color= {props.data.consent ? "primary" : "secondary"}
               variant="contained"
+              textColor = "fff"
+              disabled = {!props.data.consent}
               // style={{textTransform: 'none'}}
               size="small"
             >
@@ -162,12 +129,12 @@ function CompanyTable() {
             </Button>
           ),
           Toolbar: props => (
-            <div style={{color: 'white', backgroundColor: '#c5cae9'}}>
+            <div style={{color: 'white', backgroundColor: ' #3880d8 '}}>
                <MTableToolbar {...props} />
             </div>
           ),
            Pagination: props => (
-            <div style={{color: '#A04000', backgroundColor: '#c5cae9'}}>
+            <div style={{color: '#fff', backgroundColor: '#fff'}}>
                <MTablePagination {...props} />
             </div>
           ),
@@ -185,7 +152,7 @@ function CompanyTable() {
               textOverflow: 'ellipsis',
               paddingLeft: 5,
               paddingRight: 5,
-              backgroundColor: '#9fa8da',
+              backgroundColor: '#6da1df',
               fontWeight: 'bold',
               color: '#FFF'
           },
@@ -202,7 +169,7 @@ function CompanyTable() {
           
       }}
       icons={{
-        Filter: () => <FilterListIcon style={{ color: "3949ab" }} />,
+        Filter: () => <FilterListIcon style={{ color: "4f87e4" }} />,
         Search: () => <SearchIcon style={{ color: "white" }} />,
         ResetSearch: () => <Clear style={{ color: "white" }} />,
         FirstPage: () => <FirstPageIcon style={{ color: "blue" }} />,

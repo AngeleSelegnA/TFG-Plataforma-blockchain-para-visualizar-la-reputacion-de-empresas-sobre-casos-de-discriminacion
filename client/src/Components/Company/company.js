@@ -1,24 +1,27 @@
-import React, {Component} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Rating, Card, Image } from "semantic-ui-react";
-import telefonica from '../Home/telefonica.png';
 import { makeStyles } from '@material-ui/core/styles'
-import {Grid, Button, Box, Paper} from '@material-ui/core';
+import { Button, Box, Paper} from '@material-ui/core';
 import CompanyTable from './CompanyTable'
 import HeaderCompany from "./HeaderCompany";
 import '../Graphics/graphics.css';
 import SendIcon from '@material-ui/icons/Send';
 import { useHistory } from "react-router-dom";
 import BarChartLayaout from '../Graphics/BarCharLayaout.js';
-
+import { NavLink } from 'react-router-dom';
 import GraphicsLayout from "../Graphics/GraphicsLayout";
+import complaintContract from '../../complaintContract.json';
+import { Grid} from 'semantic-ui-react';
 
+import Web3 from 'web3';
+import * as constants from './../../constantFile.js';
 
+/*
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-
       </link>
 
-
+*/
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,109 +58,109 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Si todavia no se ha conectado con Metamask entonces aparece un popup para la conexion
+const infuraUrl = constants.INFURA_URL;
+//Crea una instancia para comunicarse con el nodo indicado
+const web3 = new Web3(new Web3.providers.HttpProvider(infuraUrl));
+//Nos conectamos con el contrato
+const contract = new web3.eth.Contract(complaintContract.abi, constants.CONTRACT_ADDRESS);
 
-function Company (){
-        const classes = useStyles();
-        let history = useHistory();
+const Company = ({ match }) => {
 
-        const form = () => {
-          history.push('/form')
-        }
-        return (
-            
+        
+  const [complaints, setComplaints] = useState([]);
+  const nameCompany = match.params.id; //Obtener el nomrbe de la empresa de la url de la pagina
+  const classes = useStyles();
+  
+  useEffect(() => {
+    contract.methods.getComplaints(nameCompany).call().then(response => setComplaints(response));
+  },[]); 
 
-            <div className={classes.root}>
-
-
-                <Grid container spacing={2} direction = "column">
-                    <Grid item><HeaderCompany/></Grid> 
-                    <Grid item container>
-                        <Grid item xs = {12} sm = {12}/>
-                        <Grid item xs = {12} sm = {12}/>
-                    </Grid>
-                </Grid>
-
-
-{/* 
-
-                <Grid container spacing={2} direction = "column">
-                    <Grid item>
-                      <Image
-                        centered
-                        size='large'
-                        src={telefonica}
-                      />
-                    </Grid> 
-                    <Grid item container>
-                        <Grid item xs = {12} sm = {12}/>
-                        <Grid item xs = {12} sm = {12}/>
-                    </Grid>
-                </Grid> */}
-
-
-
-                <Grid container spacing={2} direction = "column">
-                    <Grid item>
-                      <Button className = {classes.button} onClick = {form} variant="contained" endIcon={<SendIcon />} >
-                       Denunciar
-                      </Button>
-                    </Grid> 
-                    <Grid item container>
-                        <Grid item xs = {12} sm = {12}/>
-                        <Grid item xs = {12} sm = {12}/>
-                    </Grid>
-                </Grid>
-
-              
-
-                <Grid container padding = {20} spacing={2} justify = "center">
-                    <CompanyTable/>
-                </Grid> 
-                <Grid item container padding = {20}>
-                        <Grid item spacing={2} xs = {12} sm = {12}/>
-                        <Grid item spacing={2} xs = {12} sm = {12}/>
-                </Grid>
-                
-
-              <Grid container spacing={2} direction = "column">
-                    <Grid item>
-
-                    </Grid> 
-                    <Grid item container padding = {20}>
-                        <Grid item xs = {12} sm = {12}/>
-                        <Grid item xs = {12} sm = {12}/>
-                    </Grid>
-              </Grid>
-
-
-
-
-              <Paper padding = {20} className={classes.paperGraphics}>
-                
-                <Grid container spacing={2} padding = {20} class = 'Box' >
-                  <Grid item xs={6}> 
-                    <GraphicsLayout/> 
-                  </Grid>
-           
-                  <Grid item xs={6}>
-                    <GraphicsLayout/>
-                  </Grid>
-                </Grid>
-              </Paper>
-
-
-              <Paper className={classes.paperGraphics}>
-                <Grid container padding = {20} spacing={2}  direction = "column">
-                    <Grid item><BarChartLayaout titulo="Denuncias por género"/> </Grid> 
-                </Grid> 
-              </Paper>
-            </div>
-            
-
-        )
-
-
+  return (
+    <div className={classes.root}>
     
+
+      <Grid>
+                    
+                        
+                <Grid.Row >
+                    <Grid.Column width = {16}>
+                    <HeaderCompany name = {nameCompany}/>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column>
+                  <NavLink to={`/company/${ nameCompany }/form`}>
+                   <Button className = {classes.button} variant="contained" endIcon={<SendIcon />}>Denunciar</Button>
+                  </NavLink>
+                  </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row >
+                  <Grid.Column width = {0.5}/>
+                    <Grid.Column width = {9}>
+                        <Grid.Row>
+                            <Grid.Column width = {1} >
+                                
+                            </Grid.Column>
+                            <Grid.Column margin = {2} width = {7} >
+                              <CompanyTable complaints = {complaints}/>
+                            </Grid.Column>
+                            <Grid.Column width = {1} >
+                                    
+                            </Grid.Column>
+                                
+                        </Grid.Row>
+                        <p></p>
+                        <Grid.Row width = {10} >
+                            <Grid.Column width = {1} >
+                                
+                            </Grid.Column>
+                            <Grid.Column width = {8} >
+                              <BarChartLayaout titulo="Denuncias por género"/>
+                            </Grid.Column> 
+                            <Grid.Column width = {1} >
+                                
+                            </Grid.Column>
+                            
+                          </Grid.Row>
+                      </Grid.Column>
+                      <Grid.Column width = {5}>
+                        <Grid.Row>
+                            <Grid.Column width = {1} >
+                                
+                            </Grid.Column>
+                            <Grid.Column width = {4} >
+                              <GraphicsLayout/> 
+                            </Grid.Column>
+                            <Grid.Column width = {1} >
+                                    
+                            </Grid.Column>
+                                
+                        </Grid.Row>
+                        <p></p>
+                        <Grid.Row>
+                            <Grid.Column width = {1} >
+                                
+                            </Grid.Column>
+                            <Grid.Column width = {4} >
+                              <GraphicsLayout/> 
+                            </Grid.Column>
+                            <Grid.Column width = {1} >
+                                    
+                            </Grid.Column>
+                                
+                        </Grid.Row>
+
+                      </Grid.Column>
+                      <Grid.Column width = {0.5}/>
+                        
+                     
+
+                    
+                </Grid.Row>
+                </Grid>
+  </div>);
 }
 
 export default Company;

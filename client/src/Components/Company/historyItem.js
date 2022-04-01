@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Card, Image } from 'semantic-ui-react'
-import telefonica from '../../Images/telefonica.png';
 import { useHistory } from "react-router-dom";
 const CompanyItem =({name,reputation,urlimg}) =>{
   let history = useHistory();
@@ -14,7 +13,7 @@ const CompanyItem =({name,reputation,urlimg}) =>{
         <Image
           floated='right'
           size='small'
-          src={telefonica}
+          src={'./Images/linkedin_logo.png'}
         />
         <Card.Header>Mi experiencia:</Card.Header>
       </Card.Content>

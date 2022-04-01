@@ -1,20 +1,15 @@
-
 import React from 'react'
 import { Header, Icon, Image } from 'semantic-ui-react'
-import telefonica from '../Home/telefonica.png';
 
-const HeaderCompany = () => (
+
+const HeaderCompany = ({ name }) => (
   <div>
-    <Header as='h2' icon textAlign='center' block >
+    <Header as='h1' icon textAlign='center' block>
       <Header.Content>
-         Company 
+         {name} 
       </Header.Content>
     </Header>
-    <Image
-      centered
-      size='large'
-      src={telefonica}
-    />
+    <Image size = "large" centered src={`/Images/${ name }.jpg`}/>
   </div>
 )
 

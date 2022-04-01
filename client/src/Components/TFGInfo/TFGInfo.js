@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import {Card, Grid} from 'semantic-ui-react';
 import Container from './Container';
 import Header from './Header';
+import DonationCard from './DonationCard';
+import MemberCard from './MemberCard';
+
 import { makeStyles } from '@material-ui/core/styles'
 
     
@@ -86,7 +89,8 @@ function renderInfo(){
 const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: theme.palette.primary.main
-    }
+    },
+    
   }));
 
   
@@ -98,27 +102,91 @@ function Info (){
             
             <div className={theme.root}>
                 <Grid>
-                    <Grid.Row >
-                        <Grid.Column width = {16}>
-                            <Header/>
-                        </Grid.Column>
+                    
                         
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Container/>
-                    </Grid.Row>
-                    <Grid.Row >
-                        <Grid.Column width = {3} >
+                <Grid.Row >
+                    <Grid.Column width = {16}>
+                        <Header/>
+                    </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row >
+                    <Grid.Column width = {8}>
+                        <Grid.Row>
+                            <Grid.Column width = {1} >
+                                
+                            </Grid.Column>
+                            <Grid.Column width = {6} >
+                                <DonationCard/>
+                            </Grid.Column>
+                            <Grid.Column width = {1} >
+                                    
+                            </Grid.Column>
+                                
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width = {2} >
+                                
+                                </Grid.Column>
+                            <Grid.Column width = {6} >
+                                <Container/>
+                            </Grid.Column>
+                            <Grid.Column width = {2} >
+                                
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid.Column>
+
+                        
+                    <Grid.Column width = {4} >
+                        
+                        <Grid.Row>
+                            <Grid.Column width = {4} >
+                                <MemberCard/>
+                            </Grid.Column> 
                             
-                        </Grid.Column>
-                        <Grid.Column width = {12} >
-                            {renderInfo()}
-                        </Grid.Column>
-                        <Grid.Column width = {3} >
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width = {4} >
+                                <MemberCard/>
+                            </Grid.Column> 
+                            
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width = {4} >
+                                <MemberCard/>
+                            </Grid.Column> 
                              
-                        </Grid.Column>
+                        </Grid.Row>
+                    </Grid.Column> 
+
+
+                    <Grid.Column width = {4} >
                         
-                    </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width = {4} >
+                                <MemberCard/>
+                            </Grid.Column> 
+                            
+                        </Grid.Row>
+                        <Grid.Row></Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width = {4} >
+                                <MemberCard/>
+                            </Grid.Column> 
+                            
+                        </Grid.Row>
+                        <Grid.Row ></Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width = {4} >
+                                <MemberCard/>
+                            </Grid.Column> 
+                             
+                        </Grid.Row>
+                    </Grid.Column>
+
+                    
+                </Grid.Row>
                 </Grid>
             </div>
 
